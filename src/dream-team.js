@@ -8,8 +8,6 @@ module.exports = function createDreamTeam(members) {
       newNames.push(members[i])
     }
   }
-
-  const result = newNames.sort().map(el => el.trim()[0]).join("").toUpperCase();
-  const array = result.split("").sort().join("")
-  return array
+  const array = newNames.sort().map(el => el.trim()[0]).join("").toUpperCase();
+  return array.split("").sort().join("");
 };
