@@ -3,50 +3,56 @@ const CustomError = require("../extensions/custom-error");
 module.exports = function repeater( str, options ) {
   let repeatTimes = options.repeatTimes;
   let additionRepeatTimes = options.additionRepeatTimes;
+  let addition = options.addition;
+  let separator = options.separator;
 
   if (additionRepeatTimes === undefined) {
     additionRepeatTimes = 1
   }
-  let addition = options.addition;
+
   if (addition === undefined) {
-    addition = ''
+    addition = ""
   }
+
   if (typeof str !== "string") {
-    str.toString();
+    String(str)
   }
+
   if (typeof addition !== "string") {
-    addition.toString();
+    String(addition)
   }
+
   if (repeatTimes === undefined ) {
     repeatTimes = 1
   }
-  if (options.separator === undefined) {
-    options.separator = "+"
+
+  if (separator === undefined) {
+    separator = "+"
   }
+
   if (options.additionSeparator === undefined) {
     options.additionSeparator = "|"
   }
 
-  const arrayString = []; // массив с количеством повторений строки
-  const arrayAddition = []; // массив с количеством повторений доп. строки
+  const arrayString = [];
+  const arrayAddition = [];
 
-  while (arrayString.length < repeatTimes) { // добавляю элементы в массив
+  while (arrayString.length < repeatTimes) {
     arrayString.push(str)
   }
-  while (arrayAddition.length < additionRepeatTimes) { // добавляю элементы в массив
-    arrayAddition.push(options.addition)
+  while (arrayAddition.length < additionRepeatTimes) {
+    arrayAddition.push(String(addition))
   }
-
-  const arrayAdditionAdd = [...arrayAddition].map((el, index, arr) => {
+  const arrayAdditionAdd = arrayAddition.map((el, index, arr) => {
         if (index === arr.length - 1) {
           return el
         }
         return el + options.additionSeparator
       }
-  ).toString().split(",").join("")
+  ).join('');
 
-  const arrayStringAdd = [...arrayString].map(el => el + arrayAdditionAdd)
-  let result = arrayStringAdd.toString().split(",").join(options.separator)
-  return result.toString()
+  const arrayStringAdd = [...arrayString].map(el => el + arrayAdditionAdd);
+  let result = arrayStringAdd.join(separator);
+  return String(result);
 };
   
