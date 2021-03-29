@@ -21,4 +21,5 @@ module.exports = function getSeason(date) {
     if (Object.prototype.toString.call(date)) {
         throw new Error();
     }
+
 };
